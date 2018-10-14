@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="counties_array">
+        <item>Uasin Gishu</item>
+        <item>Elgeiyo-marakwet</item>
+        <item>Kisumu</item>
+        <item>Kisii</item>
+        <item>Kakamega</item>
+        <item>Kericho</item>
+        <item>Bomet</item>
+        <item>Nakuru</item>
+    </string-array>
+</resources>

@@ -1,9 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignUpActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:textSize="28sp"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/background_color"
+            android:padding="40dp"/>
 
-</android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="20dp">
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_firstname"
+                android:hint="Firstname"
+                android:inputType="text"
+                android:padding="10dp"
+                android:layout_weight="1"/>
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_lastname"
+                android:hint="Lastname"
+                android:inputType="text"
+                android:padding="10dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_emailAddress"
+            android:hint="Email"
+            android:padding="10dp"
+            android:inputType="textEmailAddress"
+            android:layout_margin="20dp"
+            android:layout_weight="1"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_phone"
+            android:hint="Phone"
+            android:inputType="phone"
+            android:layout_margin="20dp"
+            android:padding="10dp"
+            android:layout_weight="1"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_location"
+            android:hint="Location"
+            android:inputType="text"
+            android:layout_margin="20dp"
+            android:padding="10dp"
+            android:layout_weight="1"/>
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radio_group"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gender"
+                android:padding="5dp"/>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:id="@+id/radio_male"/>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Female"
+                android:id="@+id/radio_female"/>
+        </RadioGroup>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_password"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:layout_margin="20dp"
+            android:padding="10dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_Cpassword"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:layout_margin="20dp"
+            android:padding="10dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign up"
+            android:background="@drawable/background_color"
+            android:textColor="@color/colorWhite"
+            android:layout_margin="20dp"
+            android:padding="5dp"/>
+    </LinearLayout>
+
+</ScrollView>
