@@ -1,5 +1,6 @@
 package com.example.darkoscript.japp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -40,6 +41,14 @@ public class LoginActivity extends AppCompatActivity {
                 }else if (password.length() < 6){
                     Toast.makeText(LoginActivity.this, "Password should be longer than 6 characters", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
             }
         });
     }
