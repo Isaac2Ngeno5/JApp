@@ -8,11 +8,13 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
-    Button btn_login, btn_register;
+    Button btn_login;
     EditText edit_email, edit_password;
+    TextView text_register;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -23,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
         edit_password = findViewById(R.id.edit_password);
         //Initialization of the buttons
         btn_login = findViewById(R.id.btn_login);
-        btn_register = findViewById(R.id.btn_register);
+        text_register = findViewById(R.id.text_register);
 
         //setting onclick listener for buttons
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -37,14 +39,14 @@ public class LoginActivity extends AppCompatActivity {
                 }else if(password.isEmpty()){
                     Toast.makeText(LoginActivity.this, "please enter password", Toast.LENGTH_LONG).show();
                 }else if (!isValidEmail(email)){
-                    Toast.makeText(LoginActivity.this, "please enter a valid email Adrdress", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "please enter a valid email Address", Toast.LENGTH_LONG).show();
                 }else if (password.length() < 6){
                     Toast.makeText(LoginActivity.this, "Password should be longer than 6 characters", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
-        btn_register.setOnClickListener(new View.OnClickListener() {
+        text_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);

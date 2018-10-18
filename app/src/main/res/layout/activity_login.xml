@@ -55,11 +55,13 @@
                 android:textColor="@color/colorWhite"
                 android:layout_margin="10dp"/>
 
-            <Button
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/btn_register"
-                android:text="Sign up"/>
+                android:id="@+id/text_register"
+                android:text="Sign up"
+                android:textAlignment="center"
+                android:padding="10dp"/>
 
 
         </LinearLayout>

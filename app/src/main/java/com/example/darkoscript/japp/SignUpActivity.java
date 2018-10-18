@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.darkoscript.japp.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,6 +38,7 @@ public class SignUpActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     String gender;
     private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,29 +66,28 @@ public class SignUpActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
 
-
         btn_sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //obtaining input values
-                String firstname = edit_firstname.getText().toString().trim();
-                String lastname = edit_lastname.getText().toString().trim();
-                String email = edit_email.getText().toString().trim();
-                String phone = edit_phone.getText().toString();
+                final String firstname = edit_firstname.getText().toString().trim();
+                final String lastname = edit_lastname.getText().toString().trim();
+                final String email = edit_email.getText().toString().trim();
+                final String phone = edit_phone.getText().toString();
                 String password = edit_password.getText().toString();
                 String pass = edit_Cpassword.getText().toString();
-                String location = edit_location.getText().toString();
-                String county = spinner.getSelectedItem().toString();
+                final String location = edit_location.getText().toString();
+                final String county = spinner.getSelectedItem().toString();
                 int selectedId = radioGroup.getCheckedRadioButtonId();
 
 
-                if (selectedId == radio_male.getId()){
+                if (selectedId == radio_male.getId()) {
                     gender = "Male";
-                }else if (selectedId == radio_female.getId()){
+                } else if (selectedId == radio_female.getId()) {
                     gender = "Female";
                 }
 
-                
+
                 //validation of input values
                 if (firstname.isEmpty()) {
                     Toast.makeText(SignUpActivity.this, "please input firstname", Toast.LENGTH_LONG).show();
@@ -100,21 +101,9 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this, "please enter password", Toast.LENGTH_LONG).show();
                 } else if (location.isEmpty()) {
                     Toast.makeText(SignUpActivity.this, "please fill the location field", Toast.LENGTH_LONG).show();
-                }  else if (password.length() < 6) {
+                } else if (password.length() < 6) {
                     Toast.makeText(SignUpActivity.this, "please ensure password is at least six characters", Toast.LENGTH_LONG).show();
                 }
-//                else if (pass.equals(password) ) {
-//                    Toast.makeText(SignUpActivity.this, "please make sure the password match with confirm password", Toast.LENGTH_LONG).show();
-//                }
-                //user registration info
-                final Map<String, Object> user = new HashMap<>();
-                user.put("firstname", firstname);
-                user.put("lastname", lastname);
-                user.put("email", email);
-                user.put("phone", phone);
-                user.put("county", county);
-                user.put("location", location);
-                user.put("password", password);
 
 
                 mAuth.createUserWithEmailAndPassword(email, password)
@@ -124,32 +113,35 @@ public class SignUpActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "createUserWithEmail:success");
-                                    FirebaseUser mUser = mAuth.getCurrentUser();
+                                    final FirebaseUser mUser = mAuth.getCurrentUser();
                                     // Add a new document with a generated ID
+                                    User user = new User(mUser.getUid(), firstname, lastname, email, phone, county, location);
                                     db.collection("users")
-                                            .add(user)
-                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            .document(user.getId())
+                                            .set(user)
+                                            .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<Void>() {
                                                 @Override
-                                                public void onSuccess(DocumentReference documentReference) {
-                                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.w(TAG, "Error adding document", e);
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+                                                        startActivity(intent);
+                                                    } else {
+                                                        mUser.delete();
+                                                        Toast.makeText(SignUpActivity.this, "Failed to register user", Toast.LENGTH_LONG).show();
+                                                    }
+
                                                 }
                                             });
-                                    //updateUI(user);
+
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                     Toast.makeText(SignUpActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                                    //updateUI(null);
+                                            Toast.LENGTH_SHORT).show();
+
                                 }
 
-                                // ...
+
                             }
                         });
 
@@ -162,7 +154,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null){
+        if (currentUser != null) {
             Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
             startActivity(intent);
         }
